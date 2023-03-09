@@ -14,7 +14,10 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Blogpost::all();
+        // return view('layouts.index',['posts'=>$posts]);
+
+        return view('layouts.index',['posts'=>$posts]);
     }
 
     /**
@@ -46,7 +49,8 @@ class BlogPostController extends Controller
      */
     public function show(BlogPost $blogPost)
     {
-        //
+        $post = $blogPost;
+        return view('layouts.show',['post'=>$post]);
     }
 
     /**
