@@ -13,10 +13,18 @@ use App\Http\Controllers\BlogPostController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
 
 Route::get('/',[BlogPostController::class,'index']);
 Route::get('/blog/{blogPost}',[BlogPostController::class,'show']);
 Route::get('/blog/{blogPost}/edit',[BlogPostController::class,'edit']);
+Route::put('/blog/{blogPost}/edit',[BlogPostController::class,'update']);
+
+
+
+
+?>
