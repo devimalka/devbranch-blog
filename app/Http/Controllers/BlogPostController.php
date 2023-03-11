@@ -74,13 +74,17 @@ class BlogPostController extends Controller
     public function update(Request $request, BlogPost $blogPost)
     {
 
-        $blogPost->update(
-            [
-                'title'=>$request->title,
-                'body'=>$request->body
-            ]
-            );
-            return redirect('/',$blogPost->id);
+        // Validate the request data
+        $validated =  $request->validate([
+            'title'=>'required',
+            'body'=>'required'
+        ]);
+
+        $blogPost->update($validated);
+
+
+        return redirect()->route('blogPost-show',['blogPost'=>$blogPost->id]);
+
     }
 
     /**

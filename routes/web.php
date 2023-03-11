@@ -20,9 +20,9 @@ use App\Http\Controllers\BlogPostController;
 
 
 Route::get('/',[BlogPostController::class,'index']);
-Route::get('/blog/{blogPost}',[BlogPostController::class,'show']);
-Route::get('/blog/{blogPost}/edit',[BlogPostController::class,'edit']);
-Route::put('/blog/{blogPost}/edit',[BlogPostController::class,'update']);
+Route::get('/{blogPost}',[BlogPostController::class,'show'])->name('blogPost-show');
+Route::get('/{blogPost}/edit',[BlogPostController::class,'edit']);
+Route::put('/{blogPost}/edit',[BlogPostController::class,'update'])->name('blogPost-update');
 
 
 
