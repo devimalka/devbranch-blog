@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class BlogPostController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth',['except'=>['show','index']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +35,7 @@ class BlogPostController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.create');
     }
 
     /**
@@ -38,7 +46,23 @@ class BlogPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate(
+            [
+                'title'=>'required',
+                'body'=>'required',
+            ]
+            );
+
+
+            $post = new BlogPost;
+            $post->user_id = Auth::id();
+            $post->title = $validate['title'];
+            $post->body = $validate['body'];
+
+            $post->save();
+
+
+            return redirect()->route('blog.index');
     }
 
     /**
@@ -47,9 +71,9 @@ class BlogPostController extends Controller
      * @param  \App\Models\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function show(BlogPost $blogPost)
+    public function show($id)
     {
-        $post = $blogPost;
+        $post = BlogPost::find($id);
         return view('layouts.show',['post'=>$post]);
     }
 
@@ -59,9 +83,10 @@ class BlogPostController extends Controller
      * @param  \App\Models\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function edit(BlogPost $blogPost)
+    public function edit($id)
     {
-        return view('layouts.edit',['post'=>$blogPost]);
+        $post = BlogPost::find($id);
+        return view('layouts.edit',['post'=>$post]);
     }
 
     /**
@@ -71,8 +96,9 @@ class BlogPostController extends Controller
      * @param  \App\Models\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BlogPost $blogPost)
+    public function update(Request $request, $id)
     {
+
 
         // Validate the request data
         $validated =  $request->validate([
@@ -80,10 +106,13 @@ class BlogPostController extends Controller
             'body'=>'required'
         ]);
 
-        $blogPost->update($validated);
+
+        $post = BlogPost::find($id);
+
+        $post->update($validated);
 
 
-        return redirect()->route('blogPost-show',['blogPost'=>$blogPost->id]);
+        return redirect()->route('blog.show',$post->id);
 
     }
 
@@ -93,8 +122,11 @@ class BlogPostController extends Controller
      * @param  \App\Models\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BlogPost $blogPost)
+    public function destroy($id)
     {
-        //
+        $post = BlogPost::find($id);
+        $post->delete();
+
+        return redirect()->route('blog.index');
     }
 }
