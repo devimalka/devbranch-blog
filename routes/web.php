@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogPostController;
+use App\Http\Controllers\CommentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +19,8 @@ use App\Http\Controllers\BlogPostController;
 
 Route::redirect('/','/blog');
 Route::resource('/blog',BlogPostController::class);
+Route::resource('/blog.comment',CommentController::class);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

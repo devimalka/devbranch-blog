@@ -25,7 +25,7 @@ class BlogPostController extends Controller
         $posts = Blogpost::all();
         // return view('layouts.index',['posts'=>$posts]);
 
-        return view('layouts.index',['posts'=>$posts]);
+        return view('post.index',['posts'=>$posts]);
     }
 
     /**
@@ -74,7 +74,7 @@ class BlogPostController extends Controller
     public function show($id)
     {
         $post = BlogPost::find($id);
-        return view('layouts.show',['post'=>$post]);
+        return view('post.show',['post'=>$post]);
     }
 
     /**
@@ -86,7 +86,7 @@ class BlogPostController extends Controller
     public function edit($id)
     {
         $post = BlogPost::find($id);
-        return view('layouts.edit',['post'=>$post]);
+        return view('post.edit',['post'=>$post]);
     }
 
     /**

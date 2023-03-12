@@ -6,18 +6,21 @@
 
 <form action="{{ route('blog.store') }}" method='POST'>
 @csrf
- @method('POST')
+@method('POST')
 
-<label for="title">Title</label>
-<input type="text" name='title'>
+ <div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Title</label>
+  <input type="test" class="form-control" id="exampleFormControlInput1" name='title'>
+</div>
 
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='body'></textarea>
+</div>
 
-<label for="body">body</label>
-<input type="text" name='body'>
-<!-- <input type="hidden" name="_method" value="PUT">
-<input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
-<input type="submit" value='Submit'>
+<button class="btn btn-primary" type="submit">Post</button>
 
 </form>
+
 
 @endsection
