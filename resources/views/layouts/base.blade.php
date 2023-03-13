@@ -11,6 +11,7 @@
 <body>
 
 
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <span class="navbar-brand">My Blog</span>
@@ -22,12 +23,25 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{ route('blog.index') }}">Home</a>
         </li>
+        @if(Route::has('login'))
+        @auth
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ route('login') }}">login</a>
+          <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">Dashboard</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{ route('blog.create') }}">Add Post</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ route('blog.create') }}">{{Auth::user()->name}}</a>
+        </li>
+        
+        @else
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ route('login') }}">login</a>
+        </li>
+        @endif
+        @endauth
+       
     
     </div>
   </div>

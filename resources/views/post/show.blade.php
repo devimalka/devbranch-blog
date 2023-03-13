@@ -15,12 +15,15 @@
 <div class="col-md-12">
     @auth
         @if (Auth::id() == $post->user_id)
-            <button type="button" class="btn btn-outline-danger"><a href="{{ route('blog.edit', $post->id) }}">Edit</a></button>
+        <div class="d-flex p-2 bd-highlight ">
+        <button type="button" class="btn btn-outline-danger"><a  class="text-decoration-none" href="{{ route('blog.edit', $post->id) }}">Edit</a></button>
             <form action="{{ route('blog.destroy', $post->id) }}" method='POST'>
                 @csrf
                 @METHOD('DELETE')
                 <button type="submit" class="btn btn-outline-danger">Delete</button>
             </form>
+        </div>
+            
         @endif
     @endauth
 
