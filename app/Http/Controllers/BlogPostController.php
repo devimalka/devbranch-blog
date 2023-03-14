@@ -22,9 +22,7 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        $posts = Blogpost::all();
-        // return view('layouts.index',['posts'=>$posts]);
-
+        $posts = Blogpost::paginate(10);
         return view('post.index',['posts'=>$posts]);
     }
 
@@ -46,6 +44,7 @@ class BlogPostController extends Controller
      */
     public function store(Request $request)
     {
+
         $validate = $request->validate(
             [
                 'title'=>'required',
@@ -86,7 +85,13 @@ class BlogPostController extends Controller
     public function edit($id)
     {
         $post = BlogPost::find($id);
-        return view('post.edit',['post'=>$post]);
+        if(Auth::id()==$post->user_id){
+            return view('post.edit',['post'=>$post]);
+        }
+        else{
+            return redirect()->route('blog.index');
+        }
+      
     }
 
     /**
@@ -98,21 +103,21 @@ class BlogPostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(Auth::id()==$id){
 
-
-        // Validate the request data
-        $validated =  $request->validate([
-            'title'=>'required',
-            'body'=>'required'
-        ]);
-
-
-        $post = BlogPost::find($id);
-
-        $post->update($validated);
-
-
-        return redirect()->route('blog.show',$post->id);
+            $post = BlogPost::find($id);
+            // Validate the request data
+            $validated =  $request->validate([
+                'title'=>'required',
+                'body'=>'required'
+            ]);
+                      
+            $post->update($validated);
+      
+            return redirect()->route('blog.show',$post->id);
+        }
+      
+     
 
     }
 

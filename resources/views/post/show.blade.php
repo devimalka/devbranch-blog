@@ -31,6 +31,7 @@
         <div class="comment mt-4 text-justify float-left">
         
             <span>{{ $comment->created_at }}</span>
+            <span>{{$comment->user->name}}</span>
             <br>
             <p>{{ $comment->comment }}</p>
         </div>
@@ -42,6 +43,7 @@
   
 
 
+@auth
 <div class="container">
 <div class="row">
 <div class="col-md-12">
@@ -59,8 +61,8 @@
 </div>
 </div>
 </div>
+@endauth
 
 
- 
     
 @endsection

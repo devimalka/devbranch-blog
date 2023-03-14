@@ -3,8 +3,9 @@
 
 @section('content')
 
-
-<form action="{{ route('blog.store') }}" method='POST'>
+<div class="container">
+  <div class="row">
+  <form action="{{ route('blog.store') }}" method='POST'>
 @csrf
 @method('POST')
 
@@ -21,6 +22,11 @@
 <button class="btn btn-primary" type="submit">Post</button>
 
 </form>
+</div>
+
+  </div>
+
+
 
 
 @endsection

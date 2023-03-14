@@ -16,7 +16,7 @@
   <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='body'>{{ $post->body }}</textarea>
 </div>
 
-        <button>submit</button>
+        <button class="btn btn-primary">Update</button>
     </form>
 </div>
 
