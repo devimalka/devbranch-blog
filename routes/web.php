@@ -16,6 +16,9 @@ use App\Http\Controllers\CommentController;
 |
 */
 
+Route::get('/', function () {
+    return view('blog.index');
+})->middleware(['auth'])->name('home');
 
 Route::redirect('/','/blog');
 Route::resource('/blog',BlogPostController::class);
@@ -31,5 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::delete('blog/{blog}/comment/{comment}', 'CommentController@destroy')->name('blog.comment.destroy');
 
 require __DIR__.'/auth.php';

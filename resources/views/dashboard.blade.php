@@ -2,7 +2,7 @@
     <x-slot name="header">
         <nav class="flex items-center justify-between flex-wrap bg-white p-6">
             <div class="flex items-center flex-shrink-0 text-gray-900 mr-6">
-                <span class="font-semibold text-xl tracking-tight">My App</span>
+                <span class="font-semibold text-xl tracking-tight">My Blog</span>
             </div>
             <div class="block lg:hidden">
                 <button
@@ -24,15 +24,7 @@
                     class="block mt-4 lg:inline-block lg:mt-0 text-gray-900 hover:text-gray-900">
                     Login
                 </a>
-                @else
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                this.closest('form').submit();"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-900 hover:text-gray-900">
-                        Logout
-                    </a>
-                </form>
+               
                 @endguest
             </div>
         </nav>

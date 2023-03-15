@@ -38,21 +38,24 @@ class CommentController extends Controller
     public function store(Request $request, $blogPost)
     {
 
-
-        $blogPost = BlogPost::find($blogPost);
-        $validate = $request->validate(
-            ['comment'=>'required',]
-        );
-
-        $comment = new Comment;
-        $comment->comment = $validate['comment'];
-        $comment->user_id = Auth::id();
-        $comment->parent_id = $blogPost->user_id;
-        $comment->post_id = $blogPost->id;
-
-        $comment->save();
-
-        return redirect()->route('blog.show',$blogPost->id);
+        //check if user is logged
+        if(Auth::check()){
+            $blogPost = BlogPost::find($blogPost);
+            $validate = $request->validate(
+                ['comment'=>'required',]
+            );
+    
+            $comment = new Comment;
+            $comment->comment = $validate['comment'];
+            $comment->user_id = Auth::id();
+            $comment->parent_id = $blogPost->user_id;
+            $comment->post_id = $blogPost->id;
+    
+            $comment->save();
+    
+            return redirect()->route('blog.show',$blogPost->id);
+        }
+      
     }
 
     /**
@@ -95,8 +98,15 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($blogId,$commentId)
     {
-        //
-    }
+    //     $comment = Comment::where('id', $commentId)
+    //                   ->where('blog_id', $blogId)
+    //                   ->firstOrFail();
+    
+    // $comment->delete();
+    
+    // return redirect()->route('blog.index');
+}
+
 }

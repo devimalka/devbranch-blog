@@ -1,5 +1,10 @@
 @extends('layouts.base')
 
+<!-- Show the document title -->
+@section('title')
+{{ucfirst($post->title)}}
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -30,10 +35,19 @@
     @foreach ($post->comments as $comment)
         <div class="comment mt-4 text-justify float-left">
         
-            <span>{{ $comment->created_at }}</span>
-            <span>{{$comment->user->name}}</span>
+            <b><span>{{ $comment->user->name }}</span></b>
+            <span>{{$comment->comment}}</span>
             <br>
-            <p>{{ $comment->comment }}</p>
+            <p>{{ $comment->created_at }}</p>
+            <!-- {{ \Carbon\Carbon::parse($comment->created_at)->format('d/m/Y')}}  -->
+            
+
+<!--           
+            <form action="{{ route('blog.comment.destroy', ['blog'=>$comment->post_id,'comment' => $comment->id]) }}" method='DELETE'>
+                @csrf
+                @method("DELETE")
+                <input type="submit" value='delete'>
+            </form> -->
         </div>
     @endforeach
 </div>
